@@ -1,4 +1,5 @@
 import datetime
+import settings
 import imaplib
 import email
 import os
@@ -31,9 +32,7 @@ def search(key, value, con):
 
 def loop_emails(msgs):
     today = datetime.date.today()
-    file_name = input(
-        'This process will create a new file, enter a file name:')
-    file_name = file_name + '-%s' % today
+    file_name = settings.file_name + '-%s' % today
     file_output = open(file_name + '.txt', "w")
 
     for msg in msgs:
@@ -57,6 +56,7 @@ user_email.select('INBOX')
 if user_email:
     sender = input('Enter the senders email:')
     msgs = get_emails(search('FROM', sender, user_email))
+    settings.init()
     loop_emails(msgs)
 else:
     print('Allow third party apps to access the email account in account settings')

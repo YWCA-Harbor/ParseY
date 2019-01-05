@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+__pycache__
 
 # dotenv environment variables file
 .env
@@ -15,3 +16,6 @@ logs
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+# Test Files #
+test-2019-01-04.txt
