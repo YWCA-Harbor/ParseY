@@ -5,31 +5,51 @@ import csv
 
 def find_fields(field):
     try:
-        with open(file_name + '.txt') as file_output:
+        with open(text_file_name + '.txt') as file_output:
             for line in file_output:
                 if line.count(field):
                     turn_into_CSV(field, line)
     except FileNotFoundError:
-        print('No file')
+        print('Sorry, there was an error due to a text file not being found')
 # Read only lines that contain the word in the parameter `field`
 
 
 def turn_into_CSV(column, value):
     value = sanitize_value(column, value)
-    first_csv_arr = settings.first_csv_arr
+    new_row = []
 
-    if column not in first_csv_arr:
-        first_csv_arr.append(column)
+    if len(settings.column_csv_arr) <= 1:
+        new_row.append(value)
+        settings.rows_csv_arr.append(new_row)
+    else:
+        for arr in settings.rows_csv_arr:
+            arr.append(value)
 
-    # csv_file = input('Finally, create a name for your Excel Spreadsheet: ')
-    # csv_file = csv_file + '-%s' % today
-    # with open(csv_file + '.csv', 'w') as new_csv:
-    #         csv_writer = csv.writer(new_csv)
+    if column not in settings.column_csv_arr:
+        settings.column_csv_arr.append(column)
 
-    # for
-    print(first_csv_arr)
+    csv_column = settings.column_csv_arr
+    csv_rows = settings.rows_csv_arr
+
+    # Issue if there are more values in one field than others
     return print(column, value)
+    # return print(csv_column, csv_rows, csv_file_name)
+    # write_CSV(csv_column, csv_rows, csv_file_name)
 # Convert field and line to CSV
+
+
+def write_CSV(column, rows, file_name):
+    csv_file = file_name + '-%s' % today
+    try:
+        with open(csv_file + '.csv', 'r') as current_csv:
+            csv_reader = csv.reader(current_csv)
+            for line in csv_reader:
+                print(line)
+    except FileNotFoundError:
+        with open(csv_file + '.csv', 'w') as new_csv:
+            csv_writer = csv.writer(new_csv)
+            csv_writer.writerow()
+# Writes CSV File
 
 
 def sanitize_value(column, value):
@@ -46,9 +66,10 @@ def sanitize_value(column, value):
 
 settings.part2_gloabls()
 today = datetime.date.today()
-file_name = 'test-2019-01-04'  # settings.file_name + '-%s' % today
+text_file_name = 'test-2019-01-04'  # settings.file_name + '-%s' % today
 fields_strings = input('Enter fields to search seperated by a comma: ')
-fields_list = fields_strings.split(',')
+fields_list = fields_strings.replace(" ", "").split(',')
+csv_file_name = input('Finally, create a name for your Excel Spreadsheet: ')
 
 for field in fields_list:
     find_fields(field)

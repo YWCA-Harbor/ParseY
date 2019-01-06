@@ -5,5 +5,7 @@ def part1_globals():
 
 
 def part2_gloabls():
-    global first_csv_arr
-    first_csv_arr = []
+    global column_csv_arr
+    column_csv_arr = []
+    global rows_csv_arr
+    rows_csv_arr = []
