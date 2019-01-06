@@ -40,15 +40,13 @@ def turn_into_CSV(column, value):
 
 def write_CSV(column, rows, file_name):
     csv_file = file_name + '-%s' % today
-    try:
-        with open(csv_file + '.csv', 'r') as current_csv:
-            csv_reader = csv.reader(current_csv)
-            for line in csv_reader:
-                print(line)
-    except FileNotFoundError:
-        with open(csv_file + '.csv', 'w') as new_csv:
-            csv_writer = csv.writer(new_csv)
-            csv_writer.writerow()
+
+    with open(csv_file + '.csv', 'w') as new_csv:
+        csv_writer = csv.writer(new_csv)
+        csv_writer.writerow(column)
+
+        for row in rows:
+            csv_writer.writerow(row)
 # Writes CSV File
 
 
@@ -68,7 +66,7 @@ settings.part2_gloabls()
 today = datetime.date.today()
 text_file_name = 'test-2019-01-04'  # settings.file_name + '-%s' % today
 fields_strings = input('Enter fields to search seperated by a comma: ')
-fields_list = fields_strings.replace(" ", "").split(',')
+fields_list = fields_strings.replace(' ', '').split(',')
 csv_file_name = input('Finally, create a name for your Excel Spreadsheet: ')
 
 for field in fields_list:
