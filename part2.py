@@ -46,7 +46,7 @@ def sanitize_value(column, value):
 
 settings.part2_gloabls()
 today = datetime.date.today()
-file_name = settings.file_name + '-%s' % today
+file_name = 'test-2019-01-04'  # settings.file_name + '-%s' % today
 fields_strings = input('Enter fields to search seperated by a comma: ')
 fields_list = fields_strings.split(',')
 
