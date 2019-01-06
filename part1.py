@@ -53,10 +53,11 @@ def get_emails(result_bytes):
 
 user_email = auth(user, password, imap_url)
 user_email.select('INBOX')
+
 if user_email:
     sender = input('Enter the senders email:')
     msgs = get_emails(search('FROM', sender, user_email))
-    settings.init()
+    settings.part1_globals()
     loop_emails(msgs)
 else:
     print('Allow third party apps to access the email account in account settings')
