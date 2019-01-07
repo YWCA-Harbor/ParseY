@@ -78,7 +78,7 @@ def sanitize_value(column, value):
 
 settings.part2_gloabls()
 today = datetime.date.today()
-text_file_name = 'test-2019-01-04'  # settings.file_name + '-%s' % today
+text_file_name = settings.file_name + '-%s' % today  # 'test-2019-01-04'
 fields_strings = input('Enter fields to search seperated by a comma: ')
 fields_list = fields_strings.replace(' ', '').split(',')
 csv_file_name = input('Finally, create a name for your Excel Spreadsheet: ')
