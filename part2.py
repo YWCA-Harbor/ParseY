@@ -16,25 +16,32 @@ def find_fields(field):
 
 def turn_into_CSV(column, value):
     value = sanitize_value(column, value)
+    cc_arr = settings.column_csv_arr
+    rc_arr = settings.rows_csv_arr
     new_row = []
 
-    if len(settings.column_csv_arr) <= 1:
+    if column not in cc_arr:
+        cc_arr.append(column)
+
+    rc_length = len(rc_arr)
+    cc_length = len(cc_arr)
+
+    if rc_length == 0:
         new_row.append(value)
-        settings.rows_csv_arr.append(new_row)
+        rc_arr.append(new_row)
     else:
-        for arr in settings.rows_csv_arr:
-            arr.append(value)
-
-    if column not in settings.column_csv_arr:
-        settings.column_csv_arr.append(column)
-
-    csv_column = settings.column_csv_arr
-    csv_rows = settings.rows_csv_arr
+        for index, row in enumerate(rc_arr):
+            if len(row) != cc_length:
+                row.append(value)
+                break
+            elif index == rc_length - 1:
+                new_row.append(row)
+                rc_arr.append(new_row)
 
     # Issue if there are more values in one field than others
-    return print(column, value)
-    # return print(csv_column, csv_rows, csv_file_name)
-    # write_CSV(csv_column, csv_rows, csv_file_name)
+    # return print(column, value)
+    return print(cc_arr, rc_arr, csv_file_name)
+    # write_CSV(cc_arr, rc_arr, csv_file_name)
 # Convert field and line to CSV
 
 
@@ -58,7 +65,7 @@ def sanitize_value(column, value):
     value = ''.join(
         char for char in sanitized_string if char not in unwanted_char)
 
-    return value
+    return value.strip()
 # Removes whitespaces and special charactes in value
 
 
