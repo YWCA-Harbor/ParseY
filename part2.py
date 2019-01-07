@@ -48,14 +48,19 @@ def turn_into_CSV(column, value):
 
 def write_CSV(column, rows, file_name):
     csv_file = file_name + '-%s' % today
-    print(column, rows, file_name)
+    column_len = len(column)
 
-    # with open(csv_file + '.csv', 'w') as new_csv:
-    #     csv_writer = csv.writer(new_csv)
-    #     csv_writer.writerow(column)
+    with open(csv_file + '.csv', 'w') as new_csv:
+        csv_writer = csv.writer(new_csv)
+        csv_writer.writerow(column)
 
-    #     for row in rows:
-    #         csv_writer.writerow(row)
+        for row in rows:
+            row_len = len(row)
+            if row_len != column_len:
+                row.extend(repeat('', column_len - row_len))
+            csv_writer.writerow(row)
+
+    return print('Congratulations! Your new file is ready!')
 # Writes CSV File
 
 
