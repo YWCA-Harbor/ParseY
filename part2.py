@@ -34,12 +34,11 @@ def turn_into_CSV(column, value):
             if len(row) != cc_length:
                 row.append(value)
                 break
-            elif index == rc_length - 1:
-                new_row.append(row)
-                rc_arr.append(new_row)
+            # Problem is here #
+            # elif index == rc_length - 1:
+            #     new_row.append(row)
+            #     rc_arr.append(new_row)
 
-    # Issue if there are more values in one field than others
-    # return print(column, value)
     return print(cc_arr, rc_arr, csv_file_name)
     # write_CSV(cc_arr, rc_arr, csv_file_name)
 # Convert field and line to CSV
